@@ -27,6 +27,24 @@ public class LinkedLists<E> {
       temp.next = newNode;
     }
   }
+  public void insertAt(int index, E item) {
+    if (index < 1 || index > count + 1) {
+      System.out.println("invalid index. enter between 1 and " + (count + 1));
+      return;
+    } else if (index == 1) {
+      if (head == null) System.out.println("list empty! adding " + item + " at index 1.");
+      addFirst(item);
+    } else if (index == count + 1) addLast(item);
+    else {
+      Node<E> newNode = new Node<>(item);
+      Node<E> temp = head;
+
+      for (int i = 1; i < index - 1; i++) temp = temp.next;
+      newNode.next = temp.next;
+      temp.next = newNode;
+      count++;
+    }
+  }
 
   public void display() {
     if (isEmpty()) {
