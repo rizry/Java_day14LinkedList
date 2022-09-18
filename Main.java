@@ -13,6 +13,9 @@ public class Main {
     linkedL.insertAt(2, 30);
     linkedL.display();
 
+    linkedL.deleteFirst();
+    linkedL.display();
+
   }
 
 }

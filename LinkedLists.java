@@ -81,6 +81,13 @@ public class LinkedLists<E> {
     System.out.println(nodes.get(0));
   }
 
+  public void deleteFirst() {
+    if (head == null) {
+      System.out.println("list empty! nothing to delete");
+      return;
+    } else head = head.next;
+  }
+
   private boolean isEmpty() {
     if (head == null) return true;
     else return false;
