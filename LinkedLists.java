@@ -81,11 +81,25 @@ public class LinkedLists<E> {
     System.out.println(nodes.get(0));
   }
 
-  public void deleteFirst() {
+  public void pop() {
     if (head == null) {
       System.out.println("list empty! nothing to delete");
       return;
     } else head = head.next;
+  }
+
+  public void popLast() {
+    if (head == null) {
+      System.out.println("list empty! nothing to delete");
+      return;
+    } else if (head.next == null) head = head.next;
+    else {
+      Node<E> temp = head;
+
+      while (temp.next.next != null) temp = temp.next;
+      System.out.println("deleted " + temp.next.data);
+      temp.next = null;
+    }
   }
 
   private boolean isEmpty() {
