@@ -27,6 +27,7 @@ public class LinkedLists<E> {
       temp.next = newNode;
     }
   }
+
   public void insertAt(int index, E item) {
     if (index < 1 || index > count + 1) {
       System.out.println("invalid index. enter between 1 and " + (count + 1));
@@ -92,13 +93,32 @@ public class LinkedLists<E> {
     if (head == null) {
       System.out.println("list empty! nothing to delete");
       return;
-    } else if (head.next == null) head = head.next;
+    } else if (head.next == null) {
+      System.out.println("deleted " + head.data);
+      head = head.next;
+    }
     else {
       Node<E> temp = head;
 
       while (temp.next.next != null) temp = temp.next;
       System.out.println("deleted " + temp.next.data);
       temp.next = null;
+    }
+  }
+
+  public void findNode(E nodeToFind) {
+    if (isEmpty()) {
+      System.out.println("list empty! cant add after " + nodeToFind);
+    } else {
+      Node<E> temp = head;
+      for (int i = 1; i <= count; i++) {    //looping until we find the given node.
+        if (temp.data == nodeToFind) {
+          System.out.println(nodeToFind + " found at index " + i);
+          return;
+        }
+        temp = temp.next;
+      }
+      System.out.println("we couldnt find " + nodeToFind + " in the list.");    //when looped till the end and couldn't find the node
     }
   }
 
