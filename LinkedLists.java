@@ -5,6 +5,7 @@ import java.util.ArrayList;
 public class LinkedLists<E> {
 
   Node<E> head;
+  private int count;
 
   public void addFirst(E item) {
     Node<E> newNode = new Node<>(item);
@@ -14,6 +15,7 @@ public class LinkedLists<E> {
       newNode.next = head;
       head = newNode;
     }
+    count++;
   }
 
   public void addLast(E item) {
@@ -26,6 +28,7 @@ public class LinkedLists<E> {
       while (temp.next != null) temp = temp.next; //traverse to the last node
       temp.next = newNode;
     }
+    count++;
   }
 
   public void insertAt(int index, E item) {
@@ -86,7 +89,10 @@ public class LinkedLists<E> {
     if (head == null) {
       System.out.println("list empty! nothing to delete");
       return;
-    } else head = head.next;
+    } else {
+      head = head.next;
+      count--;
+    }
   }
 
   public void popLast() {
@@ -96,6 +102,7 @@ public class LinkedLists<E> {
     } else if (head.next == null) {
       System.out.println("deleted " + head.data);
       head = head.next;
+      count--;
     }
     else {
       Node<E> temp = head;
@@ -103,6 +110,30 @@ public class LinkedLists<E> {
       while (temp.next.next != null) temp = temp.next;
       System.out.println("deleted " + temp.next.data);
       temp.next = null;
+      count--;
+    }
+  }
+
+  public void deleteNode(E nodeTodelete) {
+    if (isEmpty()) {
+      System.out.println("list empty! cant delete " + nodeTodelete);
+    } else if (head.data == nodeTodelete) {
+      System.out.println("deleted " + nodeTodelete + " from index " + 1);
+      pop();
+    } else {
+      Node<E> temp = head;
+      Node<E> temp2 = head.next;
+      for (int i = 2; i <= count; i++) {    //looping until we find the node to delete.
+        if (temp2.data == nodeTodelete) {
+          System.out.println("deleted " + nodeTodelete + " from index " + i);
+          temp.next = temp2.next;
+          count--;
+          return;
+        }
+        temp = temp.next;
+        temp2 = temp2.next;
+      }
+      System.out.println("we couldnt find " + nodeTodelete + " in the list.");    //when looped till the end and couldn't find the node
     }
   }
 
@@ -134,11 +165,27 @@ public class LinkedLists<E> {
           newNode.next = temp.next;
           temp.next = newNode;
           System.out.println(prevNode + " found at index " + i + ". added " + nodeToAdd + " at index " + (i + 1));
+          count++;
           return;
         }
         temp = temp.next;
       }
       System.out.println("we couldnt find " + prevNode + " in the list. perhaps try a different node"); //when looped till the end and didnt find the node
+    }
+  }
+
+  public short size() {
+    if (isEmpty()) return 0;
+    else if (head.next == null) return 1;
+    else {
+      short size = 1;
+      Node<E> temp = head;
+      for (short i = 0; i <= count; i++) {
+        if (temp.next == null) return size;
+        temp = temp.next;
+        size++;
+      }
+      return size;
     }
   }
 
