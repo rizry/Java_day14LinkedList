@@ -122,6 +122,26 @@ public class LinkedLists<E> {
     }
   }
 
+  public void addNodeAfter(E prevNode, E nodeToAdd) {
+    if (isEmpty()) {
+      System.out.println("list empty! cant add after " + prevNode);
+    } else {
+      Node<E> temp = head;
+
+      for (int i = 1; i <= count; i++) {    //looping until we find the node to add after.
+        if (temp.data == prevNode) {
+          Node<E> newNode = new Node<>(nodeToAdd);
+          newNode.next = temp.next;
+          temp.next = newNode;
+          System.out.println(prevNode + " found at index " + i + ". added " + nodeToAdd + " at index " + (i + 1));
+          return;
+        }
+        temp = temp.next;
+      }
+      System.out.println("we couldnt find " + prevNode + " in the list. perhaps try a different node"); //when looped till the end and didnt find the node
+    }
+  }
+
   private boolean isEmpty() {
     if (head == null) return true;
     else return false;
