@@ -16,6 +16,7 @@ public class LinkedLists<E> {
       head = newNode;
     }
     count++;
+    sort();
   }
 
   public void addLast(E item) {
@@ -29,6 +30,7 @@ public class LinkedLists<E> {
       temp.next = newNode;
     }
     count++;
+    sort();
   }
 
   public void insertAt(int index, E item) {
@@ -90,7 +92,10 @@ public class LinkedLists<E> {
       System.out.println("list empty! nothing to delete");
       return;
     } else {
+      Node<E> temp = head;
+
       head = head.next;
+      temp.next = null;
       count--;
     }
   }
@@ -187,6 +192,26 @@ public class LinkedLists<E> {
       }
       return size;
     }
+  }
+
+  @SuppressWarnings({"unchecked", "rawtypes", "hiding"})
+  public <E extends Comparable> void sort() {
+    boolean swapped = false;
+    do {
+      Node<E> fNode = (Node<E>) head;
+      Node<E> sNode = (Node<E>) head.next;
+      swapped = false;
+      for (short i = 2; i <= count; i++) {
+        if (fNode.data.compareTo(sNode.data) > 0) {
+          E temp = fNode.data;
+          fNode.data = sNode.data;
+          sNode.data = temp;
+          swapped = true;
+        }
+        fNode = fNode.next;
+        sNode = sNode.next;
+      }
+    } while (swapped);
   }
 
   private boolean isEmpty() {
